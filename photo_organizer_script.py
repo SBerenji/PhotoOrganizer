@@ -64,7 +64,6 @@ def organize_photos(directory_path):
 
             # Extracting the year and month from the date
             year = img_date.strftime("%Y")
-            month = img_date.strftime("%B")
 
             # Create folders
             year_folder = os.path.join(directory_path, year)
@@ -75,6 +74,19 @@ def organize_photos(directory_path):
             # Move the file to the appropriate directory
             shutil.move(file_path, os.path.join(year_folder, file_name))
             print(f"Moved '{file_name}' to '{year_folder}'")
+
+            # Next organize the images into months inside the year directory
+
+            month = img_date.strftime("%B")
+            month_folder = os.path.join(year_folder, month)
+
+            if not os.path.exists(month_folder):
+                os.makedirs(month_folder)
+
+            # Move the file to the appropriate directory
+            shutil.move(os.path.join(year_folder, file_name),
+                        os.path.join(month_folder, file_name))
+            print(f"Moved '{file_name}' to '{month_folder}'")
 
     except Exception as e:
         print(f"An error occurred while organizing photos: {e}")
