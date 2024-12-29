@@ -103,14 +103,14 @@ def organize_photos(directory_path):
 
     except Exception as e:
         print(f"An error occurred while organizing photos: {e}")
+        return f"An error occurred: {e}"  # Returning the message to FastAPI
 
 
-def main():
-    directory_path = input("Please enter the file path of the images: ")
+def main(directory_path):
 
     # Check if the path is an external device
     if check_external_device(directory_path):
-        return
+        return "External device detected, please provide a local path"
 
     # Check if the directory exists and is accessible
     if not os.path.isdir(directory_path):
@@ -139,6 +139,8 @@ def main():
     except Exception as e:
         print(f"An error occured: {e}")
 
+    return f"Success! Your photos from {directory_path} have been organized successfully!"
 
-if __name__ == "__main__":
-    main()
+
+# if __name__ == "__main__":
+#     main()
