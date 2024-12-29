@@ -10,6 +10,19 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 
 
+def check_external_device(directory_path):
+    """
+    Checks if the provided path is an external device like a phone or camera.
+    """
+    if "This PC" in directory_path or any(keyword in directory_path.lower() for keyword in ['mtp', 'phone', 'samsung', 'android']):
+        print(
+            f"The path '{directory_path}' appears to be on an external device.")
+        print(
+            "Please copy the files to your computer and provide the local directory path.")
+        return True
+    return False
+
+
 def image_date_extractor(file_path):
     """
     Extracts the date the image was taken by extracting the EXIF metadata
@@ -94,6 +107,10 @@ def organize_photos(directory_path):
 
 def main():
     directory_path = input("Please enter the file path of the images: ")
+
+    # Check if the path is an external device
+    if check_external_device(directory_path):
+        return
 
     # Check if the directory exists and is accessible
     if not os.path.isdir(directory_path):
