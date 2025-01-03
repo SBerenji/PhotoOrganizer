@@ -47,8 +47,7 @@ def image_date_extractor(file_path):
         return datetime.fromtimestamp(os.path.getmtime(file_path))
 
     except Exception as e:
-        print(f"Error reading data for file located in '{file_path}' : {e}")
-        return None
+        return f"Error reading data for file located in '{file_path}' : {e}"
 
 
 def organize_photos(directory_path):
@@ -114,9 +113,7 @@ def main(directory_path):
 
     # Check if the directory exists and is accessible
     if not os.path.isdir(directory_path):
-        print(
-            f"Cannnot open file path '{directory_path}'.\nAre you sure the file path is correct?")
-        return
+        return f"Cannnot open file path '{directory_path}'.\nAre you sure the file path is correct?"
 
     print(f"Successfully accessed the directory: {directory_path}")
 
@@ -124,8 +121,7 @@ def main(directory_path):
     try:
         files = os.listdir(directory_path)
         if not files:
-            print("The directory is empty.")
-            return
+            return "The directory is empty."
 
         # Organizing the content
         organize_photos(directory_path)

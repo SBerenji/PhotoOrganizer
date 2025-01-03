@@ -9,18 +9,35 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from fastapi import Request
 
+from fastapi.responses import FileResponse
+import os
+
 app = FastAPI()
 
-# Initialize Jinja2Templates for HTML rendering
-templates = Jinja2Templates(directory="templates")
 
 # Telling FastAPI where to look for the static files (CSS and JS)
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static/CSS", StaticFiles(directory="static/CSS"), name="staticCSS")
+app.mount("/static/JS", StaticFiles(directory="static/JS"), name="staticJS")
 
+# @app.get("/static/{file_path:path}")
+# async def static_files(file_path: str):
+#     # Resolve the full path of the requested file
+#     file_full_path = os.path.join("static", file_path)
 
-# Pydantic model for the file path request which helps with validation
-class FilePathRequest(BaseModel):
-    file_path: str
+#     # Check if the file exists
+#     if os.path.exists(file_full_path):
+#         # Serve the file as a response
+#         return FileResponse(file_full_path)
+
+#     # Return an error if the file does not exist
+#     return {"error": "File not found"}
+
+# Load templates directory for HTML files
+templates = Jinja2Templates(directory="./templates")
+
+# # Pydantic model for the file path request which helps with validation
+# class FilePathRequest(BaseModel):
+#     file_path: str
 
 
 # Route to render the main page
