@@ -21,11 +21,11 @@ jobs:
 
             # Step 3: Build the docker image using the Dockerfile present in the root directory
             - name: Build the Docker Image
-              run: docker build -t ${{ secrets.DOCKER_USERNAME }}/supabase-fastapi-endpoints:latest -f Dockerfile .
+              run: docker build -t ${{ secrets.DOCKER_USERNAME }}/photo_organizer:latest -f Dockerfile .
 
             # Step 4: Push the docker image to Docker Hub
             - name: Push the Docker Image to Docker Hub
-              run: docker push ${{ secrets.DOCKER_USERNAME }}/supabase-fastapi-endpoints:latest
+              run: docker push ${{ secrets.DOCKER_USERNAME }}/photo_organizer:latest
 
             # Step 5: Trigger Render Deploy Hook to redeploy the Docker Image (optional, if using Render)
             - name: Trigger Render Deploy Hook
