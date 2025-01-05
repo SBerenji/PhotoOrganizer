@@ -15,7 +15,7 @@
     <div class="container py-5">
         <header class="text-white text-center">
             <h1 class="display-4">Photo Organizer</h1>
-            <p class="lead mb-5">Tired of organizing your photos by hand? Just drop the path to your images, and let this webapp automatically sort them into neat folders by year and month — hassle-free!</p>
+            <p class="lead mb-5">Tired of organizing your photos by hand? Just upload your images, and let this webapp automatically sort them into neat folders by year and month — hassle-free!</p>
         </header>
 
         <div class="row py-4">
@@ -23,8 +23,8 @@
                 <!-- File path input form -->
                 <form id="photoOrganizerForm" action="/organize-photos" method="post">
                     <div class="mb-3">
-                        <label for="filePath" class="form-label fs-4">Enter the file path to your photos:</label>
-                        <input type="text" class="form-control" id="filePath" name="filePath" placeholder="e.g., C:/Users/YourName/Pictures" required>
+                        <label for="filePath" class="form-label fs-4">Please upload the photos you want to organize:</label>
+                        <input type="file" class="form-control" id="photoFiles" name="photoFiles" multiple required >
                     </div>
 
                     <!-- Submit button styled with Bootstrap -->
