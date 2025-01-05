@@ -4,3 +4,5 @@ uvicorn == 0.34.0
 Jinja2 == 3.1.2
 python-multipart==0.0.20
 pydantic == 2.10.4
+boto3 == 1.35.92
+python-dotenv == 1.0.1

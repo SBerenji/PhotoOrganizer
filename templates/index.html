@@ -21,10 +21,10 @@
         <div class="row py-4">
             <div class="col-lg-6 mx-auto">
                 <!-- File path input form -->
-                <form id="photoOrganizerForm" action="/organize-photos" method="post">
+                <form id="photoOrganizerForm" enctype="multipart/form-data" action="/organize-photos" method="post">
                     <div class="mb-3">
                         <label for="filePath" class="form-label fs-4">Please upload the photos you want to organize:</label>
-                        <input type="file" class="form-control" id="photoFiles" name="photoFiles" multiple required >
+                        <input type="file" class="form-control" id="photoFiles" name="files" multiple required>
                     </div>
 
                     <!-- Submit button styled with Bootstrap -->
