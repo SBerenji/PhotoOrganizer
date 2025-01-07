@@ -24,7 +24,7 @@ async def home(request: Request):
 
 # Route to process the form submission and display the result
 @app.post("/organize-photos")
-async def organize_photos(files: list[UploadFile] = File(...)):
+async def organize_photos(request: Request, files: list[UploadFile] = File(...)):
     try:
         # Debug: Print file names to confirm receipt
         file_names = [file.filename for file in files]
@@ -32,11 +32,11 @@ async def organize_photos(files: list[UploadFile] = File(...)):
 
         # Pass uploaded files to the script to organize in S3
         result_message = organize_photos_in_s3(files)
-        return {"message": result_message}
+        return templates.TemplateResponse("result.html", {"request": request, "result_message": result_message})
 
     except Exception as e:
-        return {"error": str(e)}
-
+        # In case of error, render the result page with an error message
+        return templates.TemplateResponse("result.html", {"request": request, "result_message": f"Error: {str(e)}"})
     #     return templates.TemplateResponse("result.html", {"request": request, "result_message": result_message})
     # except Exception as e:
     #     # In case of error, render the result page with an error message

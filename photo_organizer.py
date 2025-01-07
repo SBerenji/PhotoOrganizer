@@ -98,10 +98,10 @@ def organize_photos_in_s3(file_objects):
 
             print(f"Uploaded '{file_name}' to '{s3_key}'")
 
-        return f"Photos organized successfully in S3 bucket '{S3_BUCKET}'."
+        return f"Photos organized successfully! Please download the organized folders from the link below."
 
-    except NoCredentialsError:
-        return "AWS credentials are missing or incorrect."
+    # except NoCredentialsError:
+    #     return "AWS credentials are missing or incorrect."
 
     except Exception as e:
         return f"An error occurred while organizing photos: {e}"
