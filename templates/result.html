@@ -22,7 +22,7 @@
                 <!-- File path input form -->
                 <form id="photoOrganizerForm" action="/organize-photos" method="post">
                     
-                    <p class="lead mb-5">{{ result_message }}</p> <!-- This displays the dynamic message -->
+                    <!-- <p class="lead mb-5">{{ result_message }}</p> This displays the dynamic message -->
 
                     <div class="mb-3">
                         <label for="filePath" class="form-label fs-4">Enter the file path to your photos:</label>
@@ -33,6 +33,12 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-dark my-3 btn-lg px-4">Organize Photos</button>
                     </div>
+
+                    
+                    <p>{{ result_message }}</p>
+                        {% if download_link %}
+                        <p>Download your organized photos here: <a href="{{ download_link }}" target="_blank">Download Zip</a></p>
+                        {% endif %}
                     
                 </form>
             </div>

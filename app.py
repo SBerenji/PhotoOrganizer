@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Form,  UploadFile, File, Request
-from photo_organizer import organize_photos_in_s3
+from photo_organizer import organize_photos_in_s3, zip_and_upload_to_s3
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -27,43 +27,19 @@ async def home(request: Request):
 async def organize_photos(request: Request, files: list[UploadFile] = File(...)):
     try:
         # Debug: Print file names to confirm receipt
-        file_names = [file.filename for file in files]
-        print(f"Received files: {file_names}")
+        # file_names = [file.filename for file in files]
+        # print(f"Received files: {file_names}")
 
         # Pass uploaded files to the script to organize in S3
-        result_message = organize_photos_in_s3(files)
-        return templates.TemplateResponse("result.html", {"request": request, "result_message": result_message})
+        updated_files, result_message = await organize_photos_in_s3(files)
 
+        download_link = await zip_and_upload_to_s3(updated_files, "organized_photos")
+
+        return templates.TemplateResponse(
+            "result.html",
+            {"request": request, "result_message": result_message,
+                "download_link": download_link}
+        )
     except Exception as e:
         # In case of error, render the result page with an error message
         return templates.TemplateResponse("result.html", {"request": request, "result_message": f"Error: {str(e)}"})
-    #     return templates.TemplateResponse("result.html", {"request": request, "result_message": result_message})
-    # except Exception as e:
-    #     # In case of error, render the result page with an error message
-    #     return templates.TemplateResponse("result.html", {"request": request, "result_message": f"Error: {str(e)}"})
-
-
-# app.post("/upload-photos")
-# async def upload_photos(files: list[UploadFile] = File(...)):
-#     uploaded_files = []
-
-#     try:
-#         # Iterate through all uploaded files
-#         for file in files:
-#             # Generate a unique path for each file in the S3 bucket
-#             s3_key = f"/photos{file.filename}"
-
-#             # Upload the file to S3
-#             s3_client.upload_fileobj(file.file, S3_BUCKET, s3_key)
-
-#             # Append the S3 file URL to the list
-#             uploaded_files.append(
-#                 f"https://{S3_BUCKET}.s3.{S3_REGION}.amazonaws.com/{s3_key}")
-
-#             return {"message": "Files uploaded successfully!", "files": uploaded_files}
-
-#     except NoCredentialsError:
-#         return {"error": "AWS credentials are missing or incorrect."}
-
-#     except Exception as e:
-#         return {"error": str(e)}
