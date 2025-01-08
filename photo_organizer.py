@@ -73,6 +73,9 @@ def image_date_extractor(file):
         # If no EXIF data or DateTimeOriginal tag is foind,
         # Fallback: return current time
 
+    print(f"No EXIF date found for '{file_path}'. Modification date is provided instead.")
+    return datetime.fromtimestamp(os.path.getmtime(file_path))
+
     except Exception as e:
         print(f"Error extracting date from image: {e}")
         return datetime.now()
