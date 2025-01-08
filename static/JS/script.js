@@ -19,12 +19,18 @@ document.getElementById("photoOrganizerForm").addEventListener('submit', async f
 
         const result = await response.json();
 
+        
         if (response.ok) {
-            alert(`Success: ${result.message}`);
-            console.log('Response:', result.message);
-        } else {
+            alert(result.message);
+            if (result.download_link) {
+                const link = document.createElement("a");
+                link.href = result.download_link;
+                link.target = "_blank";
+                link.textContent = "Download Organized Photos";
+                document.body.appendChild(link);
+            }
+        }  else {
             alert(`Error: ${result.error || 'An unknown error occurred'}`);
-            console.error(result);
         }
     } catch (error) {
         console.error('Fetch error:', error);
