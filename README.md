@@ -30,7 +30,7 @@ Check it out live: https://photo-organizer.onrender.com/
 ## Installation
 
 - **Prerequisites**: Ensure you have the following installed:  
-  - **Python 3.9+**: Required for running the application.  
+  - **Python 3.9**: Required for running the application.  
   - **Docker (optional)**: For containerized deployment.  
   - **AWS Account**: Set up with an S3 bucket for storage.  
 
